@@ -11,12 +11,49 @@
 
 ## 장단점
 ### 장점
-- 이름을 가질 수 있다.(동일한 시그니처의 생성자를 두개 가질 수 없다.)
-- 호출될 때마다 인스턴스를 새로 생성하지 않아도 된다. (Boolean.valueOf())
-- 반환 타입의 하위 타입 객체를 반환할 수 있는 능력이 있다.(인터페이스 기반 프레임워크, 인터페이스에 정적 메소드)
-- 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다.(EnumSet)
-- Static Factory Method를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.(서비스 제공자 프레임워크)
+
+#### 1. 이름을 가질 수 있다.(동일한 시그니처의 생성자를 두개 가질 수 없다.)
+
+  ```java
+
+@Getter
+public class Product {
+    private String productName;
+    private Boolean productIsAvailable;
+    private Boolean productIsExpired;
+
+    public Product(String productName, Boolean productIsAvailable) {
+        this.productName = productName;
+        this.productIsAvailable = productIsAvailable;
+    }
+
+    public Product(String productName, Boolean productIsExpired) {
+        this.productName = productName;
+        this.productIsExpired = productIsExpired;
+    }
+}
+  ```
+
+- 자바 내에서는 위와 같은 생성자를 가질 수 없다.
+- 생성자의 시그니처가 중복 되는 경우에 static factory method를 사용하여 해결 가능하다.
+- [Product.java](Product.java), [StaticFactoryMethodTest](..%2F..%2F..%2F..%2F..%2F..%2F..%2Ftest%2Fjava%2Fcom%2Fkibong%2Feffective_java_study%2Fcreating_destroying_objects%2Fstatic_factory_method%2FStaticFactoryMethodTest.java)
+  참고
+
+##### 2. 호출될 때마다 인스턴스를 새로 생성하지 않아도 된다. (Boolean.valueOf())
+
+- 생성자를 통해 인스턴스를 생성하게 되면 매번 새로운 인스턴스를 생성하기 때문에 같은 인스턴스를 사용하고 싶을 때 사용하지 못하게
+  된다.([newInstanceTest()](..%2F..%2F..%2F..%2F..%2F..%2F..%2Ftest%2Fjava%2Fcom%2Fkibong%2Feffective_java_study%2Fcreating_destroying_objects%2Fstatic_factory_method%2FStaticFactoryMethodTest.java))
+- static factory method를 활용해서 인스턴스를 통제할 수 있다.  
+  [FinalProduct](FinalProduct.java), [newFinalInstanceTest](..%2F..%2F..%2F..%2F..%2F..%2F..%2Ftest%2Fjava%2Fcom%2Fkibong%2Feffective_java_study%2Fcreating_destroying_objects%2Fstatic_factory_method%2FStaticFactoryMethodTest.java)
+
+#### 3. 반환 타입의 하위 타입 객체를 반환할 수 있는 능력이 있다.(인터페이스 기반 프레임워크, 인터페이스에 정적 메소드)
+
+#### 4. 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다.(EnumSet)
+
+#### 5. Static Factory Method를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.(서비스 제공자 프레임워크)
 ### 단점
-- 상속을 하려면 public이나 protected 생성자가 필요하기 때문에 Static Factory Method만 제공하면 하위 클래스를 만들 수 없다.
-- 정적 팩터리 메소드는 프로그래머가 찾기 어렵다.
+
+#### 1. 상속을 하려면 public이나 protected 생성자가 필요하기 때문에 Static Factory Method만 제공하면 하위 클래스를 만들 수 없다.
+
+#### 2. 정적 팩터리 메소드는 프로그래머가 찾기 어렵다.
 
