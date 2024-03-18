@@ -48,6 +48,7 @@ public class Product {
 
 #### 3. 반환 타입의 하위 타입 객체를 반환할 수 있는 능력이 있다.(인터페이스 기반 프레임워크, 인터페이스에 정적 메소드)
 
+- 반환 타입을 하윕 타입 객체로 반환 할 수 있다면 유연함이 생긴다. [HelloServiceFactory](HelloServiceFactory.java)
 #### 4. 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다.(EnumSet)
 
 #### 5. Static Factory Method를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.(서비스 제공자 프레임워크)

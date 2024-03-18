@@ -37,4 +37,11 @@ public class StaticFactoryMethodTest {
         log.info("finalProduct1: " + finalProduct1);
         log.info("finalProduct2: " + finalProduct2);
     }
+
+    @Test
+    public void interfaceTest() {
+        HelloService helloService = HelloServiceFactory.newInstance("ko");
+        log.info("helloService: " + helloService.hello());
+        log.info("helloService: " + helloService.bye());
+    }
 }
