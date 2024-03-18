@@ -47,13 +47,12 @@ public class Product {
   [FinalProduct](FinalProduct.java), [newFinalInstanceTest](..%2F..%2F..%2F..%2F..%2F..%2F..%2Ftest%2Fjava%2Fcom%2Fkibong%2Feffective_java_study%2Fcreating_destroying_objects%2Fstatic_factory_method%2FStaticFactoryMethodTest.java)
 
 #### 3. 반환 타입의 하위 타입 객체를 반환할 수 있는 능력이 있다.(인터페이스 기반 프레임워크, 인터페이스에 정적 메소드)
-
 - 반환 타입을 하윕 타입 객체로 반환 할 수 있다면 유연함이 생긴다. [HelloServiceFactory](HelloServiceFactory.java)
 #### 4. 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다.(EnumSet)
-
+- 3번과 연관되는 장점
 #### 5. Static Factory Method를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.(서비스 제공자 프레임워크)
+- 사용자가 제공하는 프레임워크를 사용하는 경우 Interface가 같다면 사용자가 만든 구현체를 사용할 수 있다.
 ### 단점
-
 #### 1. 상속을 하려면 public이나 protected 생성자가 필요하기 때문에 Static Factory Method만 제공하면 하위 클래스를 만들 수 없다.
 
 #### 2. 정적 팩터리 메소드는 프로그래머가 찾기 어렵다.

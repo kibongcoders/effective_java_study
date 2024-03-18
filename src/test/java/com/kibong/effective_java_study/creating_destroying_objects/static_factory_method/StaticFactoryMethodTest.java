@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+import java.util.ServiceLoader;
+
 import static com.kibong.effective_java_study.creating_destroying_objects.static_factory_method.Product.creteExpiredProduct;
 
 @SpringBootTest
@@ -43,5 +46,12 @@ public class StaticFactoryMethodTest {
         HelloService helloService = HelloServiceFactory.newInstance("ko");
         log.info("helloService: " + helloService.hello());
         log.info("helloService: " + helloService.bye());
+    }
+
+    @Test
+    public void defaultMethodTest(){
+        ServiceLoader<HelloService> load = ServiceLoader.load(HelloService.class);
+        Optional<HelloService> first = load.findFirst();
+        first.ifPresent(helloService -> log.info(helloService.hello()));
     }
 }
