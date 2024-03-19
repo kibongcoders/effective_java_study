@@ -54,6 +54,7 @@ public class Product {
 - 사용자가 제공하는 프레임워크를 사용하는 경우 Interface가 같다면 사용자가 만든 구현체를 사용할 수 있다.
 ### 단점
 #### 1. 상속을 하려면 public이나 protected 생성자가 필요하기 때문에 Static Factory Method만 제공하면 하위 클래스를 만들 수 없다.
-
 #### 2. 정적 팩터리 메소드는 프로그래머가 찾기 어렵다.
+
+- JavaDoc에서 보기가 어렵다.
 

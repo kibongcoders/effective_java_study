@@ -1,5 +1,6 @@
 package com.kibong.effective_java_study.creating_destroying_objects.static_factory_method;
 
+import com.kibong.effective_java_study.creating_destroying_objects.static_factory_method.enumeration.OrderStatus;
 import lombok.Getter;
 
 @Getter
@@ -8,6 +9,7 @@ public class Product {
     private Boolean productIsAvailable;
     private Boolean productIsExpired;
 
+    private OrderStatus orderStatus;
     public Product() {
     }
 
