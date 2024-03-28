@@ -21,3 +21,9 @@ public class Singleton {
 - 리플렉션으로 private 생성자를 호출할 수 있다.
 - 역직렬화 할 때 새로운 인스턴스가 생길 수 있다.
 
+### private 생성자 +static factory method
+#### 장점
+- API를 바꾸지 않고도 싱글턴이 아니게 변경할 수 있다.
+- 정적 팩터리를 제네릭 싱글턴 팩터리로 만들 수 있다.
+- 정적 팩터리의 메서드 참조를 공급자(Supplier)로 사용할 수 있다.
+
