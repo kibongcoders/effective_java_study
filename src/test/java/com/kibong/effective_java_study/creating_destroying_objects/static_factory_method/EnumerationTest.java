@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
-import java.util.EnumSet;
+import java.util.Comparator;import java.util.EnumSet;import java.util.concurrent.Callable;import java.util.function.IntPredicate;import java.util.function.Predicate;
 
 @SpringBootTest
 public class EnumerationTest {
