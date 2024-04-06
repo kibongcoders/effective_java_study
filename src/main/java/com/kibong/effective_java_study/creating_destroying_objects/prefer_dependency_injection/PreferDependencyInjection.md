@@ -36,6 +36,11 @@ public class SpellChecker {
 
 ## 관련 패턴
 ### Factory Method Pattern
+구체적으로 어떤 인스턴스를 만들지는 서브 클래스가 정하는 패턴
+- 객체 생성을 서브 클래스로 분리하여 캡슐화하는 패턴
+- OCP(Open-Closed Principle)를 지키도록 도와주는 패턴
+- Spring IOC의 BeanFactory의 핵심적인 패턴
+![FactoryMethod.png](FactoryMethod.png)
 생성자의 자원 팩터리를 넘겨주는 방식으로 변형 할 수 있다.
 
 #### 예제코드
@@ -74,3 +79,6 @@ public class Main {
     }
 }
 ```
+
+
+
