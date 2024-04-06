@@ -79,6 +79,66 @@ public class Main {
     }
 }
 ```
+### Spring IOC
+- Inversion of Control(뒤짚힌 제어권) 
+- 자기 코드에 대한 제어권을 자신이 아닌 외부에서 제어하는 경우
+- 재어권은 인스터스, 메소드 실행, 의존성 주입등을 이야기한다.
+
+### 스프링 IoC 컨테이너 장점
+- 자바 표준 스팩(@Inject)도 지원.
+- 손쉽게 싱글톤 객체를 생성하고 관리.
+- 객체 생성 (Bean) 관련 라이프 사이클 인터페이스 제공
+
+### 스프링 IoC 컨테이너 예제
+```java
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        SpellChecker spellChecker = context.getBean(SpellChecker.class);
+    }
+}
+```
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+    @Bean
+    public SpellChecker spellChecker() {
+        return new SpellChecker(new Dictionary());
+    }
+}
+```
+Config를 사용하지 않고 @Component를 사용하여 Bean을 등록할 수 있다.
+
+```java
+import org.springframework.stereotype.Component;
+ 
+@Component
+public class SpellChecker {
+    private final Dictionary dictionary;
+ 
+    public SpellChecker(Dictionary dictionary) {
+        this.dictionary = dictionary;
+    }
+}
+```
+그것을 @ComponentScan을 사용하여 Bean을 등록할 수 있다.
+
+```java
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "com.kibong.effective_java_study.creating_destroying_objects.prefer_dependency_injection")
+public class AppConfig {
+}
+```
 
 
 
