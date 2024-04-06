@@ -110,6 +110,46 @@ static boolean isRomanNumeral(String s) {
 - https://regex101.com/ 
 - https://regexr.com/
 
+## Garbage Collection
+Garbage Collection은 JVM에서 메모리를 관리하는 방법인데, 이것은 Heap 영역에서 사용하지 않는 객체를 제거하는 방법이라고 볼 수 있다.
+
+### Mark, Sweep, Compact
+- Mark : GC 대상이 되는지 안되는 지(참조를 가지고 있는지) 체크
+- Sweep : 필요없는 Object를 실제 메모리 공간에서 제거
+  - Sequential 하게 메모리가 제거 될 수도 있지만 그것 보다는 중간 중간 메모리 공간일 비우는 것이 더 효율적이다.
+  - 하지만 중간 중간 비우다 보면 공간의 크기가 맞지 않는 경우가 생기는데, 이것을 파편화(fragmentation)라고 부른다.
+  - 이것을 해결하기 위해 Compact를 사용한다.
+- Compact : 메모리 공간을 정리하는 것
+  - Compact를 사용하면 파편화를 해결할 수 있다.
+  - 하지만 Compact를 사용하면 GC가 느려지는 단점이 있다.
+### Young/Old Generation
+객체들은 생명주기가 짧다. 그래서 오래된 객체들은 Old Generation으로 이동하여 관리한다.
+- Young Generation : 새로 생성된 객체가 저장되는 공간
+  - Eden : 새로 생성된 객체가 저장되는 공간
+  - Survivor 0, 1 : Eden에서 살아남은 객체가 저장되는 공간
+- Old Generation : Young Generation에서 오래된 객체가 저장되는 공간
+
+### Minor GC/Full GC
+- Minor GC : Young Generation에서 일어나는 GC
+- Full GC : Young Generation/Old Generation에서 일어나는 GC 
+
+### Serial GC/Parallel GC/CMS GC/G1 GC
+- Serial GC : 싱글 코어에서는 Serial GC를 사용하는 것이 좋다
+- Parallel GC : 멀티 코어에서는 Parallel GC를 사용하는 것이 좋다
+
+### GC 알고리즘
+GC 알고리즘을 공부하려면 3가지 개념이 매우 중요하다.
+- Throughput : 어플리케이션이 처리할 수 있는 처리량
+  - 어떤 GC 알고리즘이 서버에 Throughput이 얼마나 높은지 확인
+- Latency : 지연 시간
+  - GC가 일하는 하는 동안에는 Stop the World가 발생한다. 이것이 길어지면 시스템에 장애가 발생할 수 있다.
+  - Serial GC와 Pharaell GC는 Laytenct 관점에서 좋은 GC는 아니다.
+  - CMS GC와 G1 GC는 Laytenct 관점에서 좋은 GC이다.
+- Footprint : 메모리 사용량
+  - GC 알고리즘이 얼마나 메모리를 사용하는지 확인
+
+이 중 가장 중요한 것은 Latency이다.
+Throughput과 Footprint 서버 사양을 늘리면 해결할 수 도 있지만 Laytenct는 서버 사양을 늘려도 해결이 되지 않는다.
 
 
 
