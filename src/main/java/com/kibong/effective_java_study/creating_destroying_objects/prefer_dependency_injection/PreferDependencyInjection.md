@@ -33,3 +33,44 @@ public class SpellChecker {
     }
 }
 ```
+
+## 관련 패턴
+### Factory Method Pattern
+생성자의 자원 팩터리를 넘겨주는 방식으로 변형 할 수 있다.
+
+#### 예제코드
+
+```java
+
+import java.util.Dictionary;
+import java.util.function.Supplier;
+
+public class SpellChecker {
+    private final Dictionary dictionary;
+
+    public SpellChecker(DictionayFactory dictionaryFactory) {
+        this.dictionary = dictionaryFactory.get();
+    }
+
+    public SpellChecker(Supplier<? extends  Dictionary> dictionary) {
+        this.dictionary = dictionary.get();
+    }
+
+    public boolean isValid(String word) {
+        return dictionary.isValid(word);
+    }
+
+    public List<String> suggestions(String typo) {
+        return dictionary.suggestions(typo);
+    }
+}
+```
+클라이언트 코드
+```java
+public class Main {
+    public static void main(String[] args) {
+        SpellChecker spellChecker = new SpellChecker(Dictionary::new);
+        SpellChecker spellChecker = new SpellChecker(DictionayFactory::get);
+    }
+}
+```
