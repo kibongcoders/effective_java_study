@@ -1,4 +1,4 @@
-# Eleminate Obsolete Object References.
+# Eleminate Obsolete Object References
 다 쓴 객체 참조를 해제하라.
 
 ## 다 쓴 객체 참조 해제하기
@@ -34,3 +34,59 @@ public class Stack {
     }
 }
 ```
+해당 코드를 보면 pop 메서드에서 배열의 마지막 원소를 반환하고 size를 감소시킨다.  
+그런데 이렇게 코드를 pop 메서드를 한다고 해도 배열의 마지막 원소는 여전히 참조를 가지고 있기 때문에
+언젠가는 OutOfMemoryError가 발생할 수 있다.  
+그래서 코드를 이렇게 변경해야한다.  
+```java
+public Object pop() {
+    if (size == 0) {
+        throw new EmptyStackException();
+    }
+    Object result = elements[--size];
+    elements[size] = null; // 다 쓴 참조 해제
+    return result;
+}
+```
+이렇게 하면 배열의 마지막 원소를 null로 처리하여 가비지 컬렉션의 대상이 된다.
+
+WeakHashMap을 사용해서 객체 참조를 해제할 수도 있다.  
+WeakHashMap은 키가 가비지 컬렉션의 대상이 되면 해당 키와 값이 제거된다.  
+WeakHashMap을 사용할 때에 중요한 점은 같은 scope에서 사용할 경우 아직 해당 scope가 끝나지 않았다면,  
+WeakHashMap의 키가 가비지 컬렉션의 대상이 되지 않는다.
+
+다음 방법은 LRUCache를 사용하는 방법이다.
+Latest Recently Used Cache이다.
+LRUCache는 가장 오랫동안 참조되지 않은 객체를 제거하는 방법이다.
+
+```java
+public class LRUCache<K, V> extends LinkedHashMap<K, V> {
+    private static final int MAX_ENTRIES = 100;
+
+    public LRUCache() {
+        super(MAX_ENTRIES, 0.75f, true);
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        return size() > MAX_ENTRIES;
+    }
+}
+```
+
+다음 방법은 Scheduled ThreadPool을 사용하는 방법이다.
+Scheduled ThreadPool은 일정 시간이 지나면 해당 객체를 제거하는 방법이다.
+
+```java
+public class ScheduledExecutorServiceTest {
+    public static void main(String[] args) {
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        Runnable task = () -> System.out.println("Hello");
+        scheduledExecutorService.schedule(task, 1, TimeUnit.SECONDS);
+        scheduledExecutorService.shutdown();
+    }
+}
+```
+
+
+
