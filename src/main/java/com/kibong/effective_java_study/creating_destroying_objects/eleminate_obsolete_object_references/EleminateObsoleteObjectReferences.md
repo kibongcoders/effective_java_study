@@ -50,6 +50,35 @@ public Object pop() {
 ```
 이렇게 하면 배열의 마지막 원소를 null로 처리하여 가비지 컬렉션의 대상이 된다.
 
+## Null Pointer Exception
+
+### Null Pointer Exception이 발생되는 이유
+메소드에서 null을 return하거나 null을 체크하지 않았기 때문에 발생된다.
+
+GC를 사용하기 위해 Reference를 Null 처리한 후 해당 Reference를 사용할 때 Null Pointer Exception이 발생한다  
+이 때 Null Pointer Exception이 발생하지 않게 된다면 잘못된 일을 수행하게 될 것이다.
+
+### Null Pointer Exception을 방지하는 방법
+Optional을 사용
+```java
+public class OptionalTest {
+    public static void main(String[] args) {
+        Optional<String> optional = Optional.ofNullable(null);
+        System.out.println(optional.orElse("Hello"));
+    }
+}
+```
+Primitive Type을 Optional로 사용하려면 OptionalInt, OptionalLong, OptionalDouble을 사용하면 된다.
+```java
+public class OptionalTest {
+    public static void main(String[] args) {
+        OptionalInt optionalInt = OptionalInt.of(1);
+        System.out.println(optionalInt.orElse(0));
+    }
+}
+```
+
+
 WeakHashMap을 사용해서 객체 참조를 해제할 수도 있다.  
 WeakHashMap은 키가 가비지 컬렉션의 대상이 되면 해당 키와 값이 제거된다.  
 WeakHashMap을 사용할 때에 중요한 점은 같은 scope에서 사용할 경우 아직 해당 scope가 끝나지 않았다면,  
