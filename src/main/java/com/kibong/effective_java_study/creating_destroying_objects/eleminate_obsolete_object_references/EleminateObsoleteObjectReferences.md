@@ -77,6 +77,53 @@ public class OptionalTest {
     }
 }
 ```
+## WeakHashMap
+더이상 사용하지 않는 객체를 GC할 때 자동으로 삭제해주는 Map
+### WeakHashMap을 사용하기 좋은 경우
+- Value가 중요한 경우에는 WeakHashMap을 사용
+- Map에 넣는 데이터가 Key가 유효하지 않거나 키가 더이상 Reference를 가지고 있지 않을 때 Value가 무의미 해지는 경우 -> Request Map을 사용
+- Cache를 구현해야하는 경우
+
+### WeakHashMap을 사용할 때 주의점
+- WeakHashMap을 사용하더라도 Reference Type이나 Primitive Type은 JVM에서 Caching 하기 때문에 WeakHashMap을 사용해도 GC가 되지 않을 수 있다.
+  - Reference를 만들어서 사용하는 것이 좋다.
+### WeakReference
+객체를 참조하고 있는 Reference가 없으면 GC가 발생하면서 Reference를 해제한다.
+#### Reference 종류
+- Strong Reference : 객체를 참조하고 있는 Reference
+- Soft Reference : GC가 발생하기 전까지는 Reference를 유지하고 있다가 GC가 발생하면 Reference를 해제한다.
+  - ```java
+    public class SoftReferenceTest {
+        public static void main(String[] args) {
+            SoftReference<String> softReference = new SoftReference<>("Hello");
+            System.out.println(softReference.get());
+        }
+    }
+    ```
+  - SoftReference는 메모리가 부족할 때 GC가 발생 시킨다.
+- Weak Reference : GC가 발생하면 Reference를 해제한다.
+  - ```java
+    public class WeakReferenceTest {
+        public static void main(String[] args) {
+            WeakReference<String> weakReference = new WeakReference<>("Hello");
+            System.out.println(weakReference.get());
+        }
+    }
+    ```
+- Phantom Reference : Reference가 해제되기 전에 뭔가 작업을 하고 싶을 때 사용한다.
+  - PhantomReference는 ReferenceQueue를 사용해야 한다.
+  - ```java
+    public class PhantomReferenceTest {
+        public static void main(String[] args) {
+            ReferenceQueue<String> referenceQueue = new ReferenceQueue<>();
+            PhantomReference<String> phantomReference = new PhantomReference<>("Hello", referenceQueue);
+            System.out.println(phantomReference.get());
+        }
+    }
+    ```
+  - GC를 한 다음 PhantomReference만 남은 경우 ReferenceQueue에 들어가게 된다.
+
+
 
 
 WeakHashMap을 사용해서 객체 참조를 해제할 수도 있다.  
