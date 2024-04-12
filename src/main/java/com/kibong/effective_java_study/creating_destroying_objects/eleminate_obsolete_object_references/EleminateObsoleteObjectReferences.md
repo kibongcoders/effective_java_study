@@ -150,8 +150,9 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V> {
 }
 ```
 
-다음 방법은 Scheduled ThreadPool을 사용하는 방법이다.
-Scheduled ThreadPool은 일정 시간이 지나면 해당 객체를 제거하는 방법이다.
+[//]: # (다음 방법은 Scheduled ThreadPool을 사용하는 방법이다.)
+
+[//]: # (Scheduled ThreadPool은 일정 시간이 지나면 해당 객체를 제거하는 방법이다.)
 
 ```java
 public class ScheduledExecutorServiceTest {
