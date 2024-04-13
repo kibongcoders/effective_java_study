@@ -123,18 +123,6 @@ public class OptionalTest {
     ```
   - GC를 한 다음 PhantomReference만 남은 경우 ReferenceQueue에 들어가게 된다.
 
-
-
-
-WeakHashMap을 사용해서 객체 참조를 해제할 수도 있다.  
-WeakHashMap은 키가 가비지 컬렉션의 대상이 되면 해당 키와 값이 제거된다.  
-WeakHashMap을 사용할 때에 중요한 점은 같은 scope에서 사용할 경우 아직 해당 scope가 끝나지 않았다면,  
-WeakHashMap의 키가 가비지 컬렉션의 대상이 되지 않는다.
-
-다음 방법은 LRUCache를 사용하는 방법이다.
-Latest Recently Used Cache이다.
-LRUCache는 가장 오랫동안 참조되지 않은 객체를 제거하는 방법이다.
-
 ```java
 public class LRUCache<K, V> extends LinkedHashMap<K, V> {
     private static final int MAX_ENTRIES = 100;
