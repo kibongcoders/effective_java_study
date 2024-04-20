@@ -44,3 +44,7 @@ public static void main(String[] args) {
 - 코드가 깔끔해진다.
 - close() 메서드에서 발생한 예외는 숨겨지지 않는다.
 - close() 메서드에서 발생한 예외는 무시되지 않는다.
+
+## try-with-resources 사용시 주의사항
+- try-with-resources를 사용하려면 AutoCloseable 인터페이스를 구현해야한다.
+- try-with-resources를 사용하면 close() 메서드에서 발생한 예외는 숨겨지지 않는다.
