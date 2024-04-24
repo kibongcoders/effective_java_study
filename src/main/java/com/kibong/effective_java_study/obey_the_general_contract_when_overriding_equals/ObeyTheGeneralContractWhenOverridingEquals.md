@@ -206,3 +206,106 @@ public class CaseInsensitiveString {
     }
 }
 ```
+
+### equals 규약을 잘 지키는 방법
+4가지 규칙을 지킨다면 equals 규약을 잘 지키는 것으로 볼 수 있다.
+1. 객체 동일성 비교
+2. 타입 비교
+3. 타입 캐스팅
+4. 필드 비교
+#### 객체 동일성 비교
+```java
+@Override
+public boolean equals(Object o) {
+    if (this == o) {
+        return true;
+    }
+}
+```
+### 타입 비교
+```java
+@Override
+public boolean equals(Object o) {
+    if (this == o) {
+        return true;
+    }
+    
+    if (!(o instanceof Point)) {
+        return false;
+    }
+}
+```
+### 타입 캐스팅
+```java
+@Override
+public boolean equals(Object o) {
+    if (this == o) {
+        return true;
+    }
+    
+    if (!(o instanceof Point)) {
+        return false;
+    }
+    
+    Point p = (Point) o;
+}
+```
+### 필드 비교
+핵심적인 필드들만 비교한다.
+ex) 동기화에 사용하는 락은 사용하지 않는다.
+```java
+@Override
+public boolean equals(Object o) {
+    if (this == o) {
+        return true;
+    }
+    
+    if (!(o instanceof Point)) {
+        return false;
+    }
+    
+    Point p = (Point) o;
+    return p.x == x && p.y == y;
+}
+```
+### Equals 툴을 이용하는 방법
+- AutoValue
+- Lombok
+- Record
+#### AutoValue
+Annotation Proccessor를 이용하는 정석적인 방법  
+규약들이 있어 잘 쓰이지는 않음
+```java
+@AutoValue
+public abstract class Point {
+    public static Point create(int x, int y) {
+        return new AutoValue_Point(x, y);
+    }
+    
+    public abstract int x();
+    public abstract int y();
+}
+```
+#### Lombok
+```java
+@EqualsAndHashCode
+@ToString
+public class Point {
+    private final int x;
+    private final int y;
+    
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+```
+#### Record
+```java
+public record Point(int x, int y) {
+}
+```
+
+        
+
+
