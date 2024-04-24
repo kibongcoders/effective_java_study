@@ -305,7 +305,11 @@ public class Point {
 public record Point(int x, int y) {
 }
 ```
-
+### equals를 재정의할 때 주의사항
+1. equals를 재정의할 때는 hashCode도 재정의해야 한다.
+2. equals 메서드의 인자 타입은 Object여야 한다.
+3. equals 메서드를 재정의할 때는 반드시 @Override 어노테이션을 붙여야 한다.
+4. equals 메서드를 재정의할 때는 null을 처리해야 한다.
         
 
 
