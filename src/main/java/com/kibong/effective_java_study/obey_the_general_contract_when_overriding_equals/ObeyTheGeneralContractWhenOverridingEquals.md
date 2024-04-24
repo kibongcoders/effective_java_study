@@ -133,8 +133,54 @@ public class CaseInsensitiveString {
     }
 }
 ```
+Enum에 있는 equals는 객체의 동일성만을 확인한다. 
+```java
+public enum Color {
+    RED, BLUE, GREEN
+}
+```
+
+```java
+import java.awt.*;
+
+public class ColorPoint {
+  private final Point point;
+  private final Color color;
+
+  public ColorPoint(int x, int y, Color color) {
+    point = new Point(x, y);
+    this.color = Objects.requireNonNull(color);
+  }
+    
+  // 이 ColorPoint의 Point 뷰를 반환
+  // 이렇게 코드를 작성한다면 상당히 안전하게 작성 가능하다.
+  public Point asPoint() {
+    return point;
+  }
+
+  @Override
+
+  public boolean equals(Object o) {
+    if (!(o instanceof ColorPoint)) {
+      return false;
+    }
+    ColorPoint cp = (ColorPoint) o;
+    return cp.point.equals(point) && cp.color.equals(color);
+  }
+
+  public static void main(String[] args) {
+    Point p = new Point(1, 2);
+    Point cp1 = new ColorPoint(1, 2, Color.RED).asPoint();
+    ColorPoint cp2 = new ColorPoint(1, 2, Color.BLUE);
+    System.out.println(cp1.equals(p)); // false
+    System.out.println(p.equals(cp2)); // false
+    System.out.println(cp1.equals(cp2)); // false
+  }
+}
+```
 
 ### null-아님
+
 ```java
 public class CaseInsensitiveString {
     private final String s;
