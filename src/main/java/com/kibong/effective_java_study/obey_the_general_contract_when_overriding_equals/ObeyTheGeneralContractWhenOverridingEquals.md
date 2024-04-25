@@ -301,6 +301,13 @@ public class Point {
 }
 ```
 #### Record
+- Record는 Java 17부터 지원하는 기능이다.
+- Record는 불변의 데이터를 표현하기 위한 클래스이다.
+- Record는 equals, hashCode, toString 메서드를 자동으로 생성해준다.
+- Record는 final로 선언된 필드만 가질 수 있다.
+- Record는 명시적인 생성자를 가질 수 없다.
+
+
 ```java
 public record Point(int x, int y) {
 }
@@ -310,6 +317,7 @@ public record Point(int x, int y) {
 2. equals 메서드의 인자 타입은 Object여야 한다.
 3. equals 메서드를 재정의할 때는 반드시 @Override 어노테이션을 붙여야 한다.
 4. equals 메서드를 재정의할 때는 null을 처리해야 한다.
+
         
 
 
